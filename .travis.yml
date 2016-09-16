@@ -3,17 +3,16 @@ sudo: required
 services:
     - docker
 
+env:
+    - BUILD="docker-compose up -d"
+    - BUILD="docker run -d --name db mattermost/mattermost-prod-db && sleep 5 && docker run -d --link db -p 80:80 --name app mattermost/mattermost-prod-app"
+
 before_install:
-    - docker build -t mattermost-prod-db db
-    - docker build -t mattermost-prod-app app
+    - docker-compose -f docker-compose-build.yml build
 
 install:
     - eval $BUILD
     - sleep 10
-
-env:
-    - BUILD="docker-compose up -d"
-    - BUILD="docker run -d --name db mattermost-prod-db && sleep 5 && docker run -d --link db -p 80:80 --name app mattermost-prod-app"
 
 script:
     - curl -sSf http://localhost > /dev/null

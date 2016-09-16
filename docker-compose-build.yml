@@ -1,0 +1,11 @@
+version: "2"
+services:
+  db:
+    build: db
+    image: mattermost/mattermost-prod-db
+  app:
+    build: app
+    image: mattermost/mattermost-prod-app
+  web:
+    build: web
+    image: mattermost/mattermost-prod-web

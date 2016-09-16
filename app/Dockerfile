@@ -1,15 +1,17 @@
-FROM ubuntu:14.04
+FROM debian:jessie
 
-RUN apt-get update && apt-get -y install curl netcat
-RUN mkdir -p /mattermost/data
+RUN apt-get update && apt-get -y install curl \
+ && rm -rf /var/lib/apt/lists/* \
+ && mkdir -p /opt/mattermost/data \
+ && useradd -r mattermost -U \
+ && cd /opt \
+ && curl https://releases.mattermost.com/3.4.0/mattermost-team-3.4.0-linux-amd64.tar.gz | tar -xvz
 
-RUN curl https://releases.mattermost.com/3.4.0/mattermost-team-3.4.0-linux-amd64.tar.gz | tar -xvz
-
-RUN rm /mattermost/config/config.json
+RUN rm /opt/mattermost/config/config.json
 COPY config.template.json /
 
-COPY docker-entry.sh /
-RUN chmod +x /docker-entry.sh
-ENTRYPOINT ["/docker-entry.sh"]
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 80
