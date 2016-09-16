@@ -5,7 +5,7 @@ RUN apt-get update && apt-get -y install curl \
  && mkdir -p /opt/mattermost/data \
  && useradd -r mattermost -U \
  && cd /opt \
- && curl https://releases.mattermost.com/3.3.0/mattermost-team-3.3.0-linux-amd64.tar.gz | tar -xvz
+ && curl https://releases.mattermost.com/3.4.0/mattermost-team-3.4.0-linux-amd64.tar.gz | tar -xvz
 
 RUN rm /opt/mattermost/config/config.json
 COPY config.template.json /
