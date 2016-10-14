@@ -1,5 +1,7 @@
 db:
   image: mattermost/mattermost-prod-db
+  build: db
+  restart: always
   volumes:
     - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
   environment:
@@ -14,6 +16,7 @@ app:
   image: mattermost/mattermost-prod-app
   links:
     - db
+  restart: always
   volumes:
     - ./volumes/app/mattermost/config:/opt/mattermost/config
     - ./volumes/app/mattermost/data:/opt/mattermost/data
@@ -26,3 +29,4 @@ web:
   ports:
     - "80:80"
     - "443:443"
+  restart: always
