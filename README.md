@@ -4,22 +4,18 @@ This project enables deployment of a Mattermost server in a multi-node productio
 
 [![Build Status](https://travis-ci.org/mattermost/mattermost-docker.svg?branch=master)](https://travis-ci.org/mattermost/mattermost-docker)
 
-## Requirements
-
-* [docker]
-* [docker-compose]
-
-## Installation with AWS Elastic Beanstalk 
-
-Please see [AWS Elastic Beanstalk](./README.aws.md) install guide. 
-
-## Installation without Docker 
-
-To install Mattermost without Docker directly onto a Linux-based operating systems, please refer to the guide here: https://docs.mattermost.com/guides/administrator.html#installing-mattermost
+Notes: 
+- To install this Docker project on AWS Elastic Beanstalk please see [AWS Elastic Beanstalk Guide](./README.aws.md).
+- To install Mattermost without Docker directly onto a Linux-based operating systems, please see [Admin Guide](https://docs.mattermost.com/guides/administrator.html#installing-mattermost).
 
 ## Installation using Docker Compose 
 
 The following instructions deploy Mattermost in a production configuration using multi-node Docker Compose set up. 
+
+### Requirements
+
+* [docker]
+* [docker-compose]
 
 ### Install with SSL certificate
 
