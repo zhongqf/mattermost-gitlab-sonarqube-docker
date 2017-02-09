@@ -8,18 +8,33 @@ services:
     - --loglevel warning
     volumes:
     - ./volumes/db/redis:/var/lib/redis:Z
+    - /etc/localtime:/etc/localtime:ro
 
   postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
     volumes:
     - ./volumes/db/postgresql:/var/lib/postgresql:Z
+    - /etc/localtime:/etc/localtime:ro
     environment:
     - DB_USER=dbuser
     - DB_PASS=password
-    - DB_NAME=gitlabhq_production,mattermost
+    - DB_NAME=gitlabhq_production,mattermost,sonar
     - DB_EXTENSION=pg_trgm
 
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - sonarnet
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://postgresql:5432/sonar
+      - SONARQUBE_JDBC_USERNAME=dbuser
+      - SONARQUBE_JDBC_PASSWORD=password
+    volumes:
+      - ./volumes/app/sonarqube:/opt/sonarqube:Z
+      - /etc/localtime:/etc/localtime:ro
 
   mattermost:
     build: app
@@ -87,9 +102,9 @@ services:
     - GITLAB_PORT=10080
     - GITLAB_SSH_PORT=10022
     - GITLAB_RELATIVE_URL_ROOT=
-    - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
-    - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
-    - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
+    - GITLAB_SECRETS_DB_KEY_BASE=vmML4sWHTgM3J999XWLLknHNTd3LcwgpxzJXVnsHcmszhCLfknk4CVrLWqqLnzzq
+    - GITLAB_SECRETS_SECRET_KEY_BASE=7PqtwJfpwqgKK7tHjh4frs3xfvVPnzxFkFmm3ntnnRdsNgvRCwkc7Vpnstz9zv3P
+    - GITLAB_SECRETS_OTP_KEY_BASE=kbNLMPWr4prJsrkLmR7KWjRfTsJTftNH9VbtkKF7nqNdnJdfRMPpRtVdkCmcfq3W
 
     - GITLAB_ROOT_PASSWORD=
     - GITLAB_ROOT_EMAIL=
@@ -182,3 +197,6 @@ services:
     - OAUTH_AZURE_API_SECRET=
     - OAUTH_AZURE_TENANT_ID=
 
+networks:
+  sonarnet:
+    driver: bridge
