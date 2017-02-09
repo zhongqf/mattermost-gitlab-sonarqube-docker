@@ -14,6 +14,8 @@ ADD setup-wale.sh /docker-entrypoint-initdb.d/
 COPY docker-entrypoint1.sh /
 RUN chmod +x /docker-entrypoint1.sh
 
+ENV PGDATA /var/lib/postgresql/data
+
 ENTRYPOINT ["/docker-entrypoint1.sh"]
 
 CMD ["postgres"]

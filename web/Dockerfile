@@ -6,6 +6,8 @@ RUN rm /etc/nginx/sites-enabled/default
 
 COPY mattermost /etc/nginx/sites-available/
 COPY mattermost-ssl /etc/nginx/sites-available/
+COPY gitlab /etc/nginx/sites-available/
+COPY gitlab-ssl /etc/nginx/sites-available/
 ADD docker-entry.sh /
 
 RUN chmod +x /docker-entry.sh
@@ -19,4 +21,4 @@ WORKDIR /etc/nginx
 
 ENTRYPOINT /docker-entry.sh
 
-EXPOSE 80 443
+EXPOSE 8010 8013 8020 8023
