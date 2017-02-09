@@ -23,6 +23,7 @@ services:
     - DB_EXTENSION=pg_trgm
 
   sonarqube:
+    restart: always
     image: sonarqube:6.2
     ports:
       - "9000:9000"
@@ -35,7 +36,10 @@ services:
       - SONARQUBE_JDBC_USERNAME=dbuser
       - SONARQUBE_JDBC_PASSWORD=password
     volumes:
-      - ./volumes/app/sonarqube:/opt/sonarqube:Z
+      - ./volumes/app/sonarqube/conf:/opt/sonarqube/conf:Z
+      - ./volumes/app/sonarqube/data:/opt/sonarqube/data:Z
+      - ./volumes/app/sonarqube/extensions:/opt/sonarqube/extensions:Z
+      - ./volumes/app/sonarqube/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins:Z
       - /etc/localtime:/etc/localtime:ro
 
   mattermost:
