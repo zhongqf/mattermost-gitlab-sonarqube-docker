@@ -7,14 +7,14 @@ services:
     command:
     - --loglevel warning
     volumes:
-    - ./volumes/db/redis:/var/lib/redis:Z
+    - /srv/docker/mgsdocker/db/redis:/var/lib/redis:Z
     - /etc/localtime:/etc/localtime:ro
 
   postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
     volumes:
-    - ./volumes/db/postgresql:/var/lib/postgresql:Z
+    - /srv/docker/mgsdocker/db/postgresql:/var/lib/postgresql:Z
     - /etc/localtime:/etc/localtime:ro
     environment:
     - DB_USER=dbuser
@@ -34,18 +34,18 @@ services:
       - SONARQUBE_JDBC_USERNAME=dbuser
       - SONARQUBE_JDBC_PASSWORD=password
     volumes:
-      - ./volumes/app/sonarqube/conf:/opt/sonarqube/conf:Z
-      - ./volumes/app/sonarqube/data:/opt/sonarqube/data:Z
-      - ./volumes/app/sonarqube/extensions:/opt/sonarqube/extensions:Z
-      - ./volumes/app/sonarqube/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins:Z
+      - /srv/docker/mgsdocker/app/sonarqube/conf:/opt/sonarqube/conf:Z
+      - /srv/docker/mgsdocker/app/sonarqube/data:/opt/sonarqube/data:Z
+      - /srv/docker/mgsdocker/app/sonarqube/extensions:/opt/sonarqube/extensions:Z
+      - /srv/docker/mgsdocker/app/sonarqube/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins:Z
       - /etc/localtime:/etc/localtime:ro
 
   mattermost:
     build: app
     restart: always
     volumes:
-      - ./volumes/app/mattermost/config:/mattermost/config:rw
-      - ./volumes/app/mattermost/data:/mattermost/data:rw
+      - /srv/docker/mgsdocker/app/mattermost/config:/mattermost/config:rw
+      - /srv/docker/mgsdocker/app/mattermost/data:/mattermost/data:rw
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "8080:80"
@@ -55,22 +55,6 @@ services:
       - MM_USERNAME=dbuser
       - MM_PASSWORD=password
       - MM_DBNAME=mattermost
-
-  # mattermost:
-  #   restart: always
-  #   image: jasl8r/mattermost:3.4.0-1
-  #   links:
-  #     - postgresql:postgresql
-  #   ports:
-  #     - "8080:80"
-  #   environment:
-  #     - MATTERMOST_SECRET_KEY=long-and-random-alphanumeric-string
-  #     - MATTERMOST_LINK_SALT=long-and-random-alphanumeric-string
-  #     - MATTERMOST_RESET_SALT=long-and-random-alphanumeric-string
-  #     - MATTERMOST_INVITE_SALT=long-and-random-alphanumeric-string
-  #   volumes:
-  #     - ./volumes/app/mattermost:/opt/mattermost/data
-
 
   gitlab:
     restart: always
@@ -82,7 +66,7 @@ services:
     - "10080:80"
     - "10022:22"
     volumes:
-    - ./volumes/app/gitlab:/home/git/data:Z
+    - /srv/docker/mgsdocker/app/gitlab:/home/git/data:Z
     environment:
     - DEBUG=false
 
@@ -200,7 +184,3 @@ services:
     - OAUTH_AZURE_API_KEY=
     - OAUTH_AZURE_API_SECRET=
     - OAUTH_AZURE_TENANT_ID=
-
-networks:
-  sonarnet:
-    driver: bridge
