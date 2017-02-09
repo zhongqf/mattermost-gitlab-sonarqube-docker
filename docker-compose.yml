@@ -25,6 +25,8 @@ services:
   staticweb:
     build: staticweb
     restart: always
+    ports:
+      - "80:80"
 
   sonarqube:
     restart: always
