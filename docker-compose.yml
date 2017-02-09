@@ -16,6 +16,8 @@ services:
     volumes:
     - /srv/docker/mgsdocker/db/postgresql:/var/lib/postgresql:Z
     - /etc/localtime:/etc/localtime:ro
+    ports:
+    - "5432:5432"
     environment:
     - DB_USER=dbuser
     - DB_PASS=password
