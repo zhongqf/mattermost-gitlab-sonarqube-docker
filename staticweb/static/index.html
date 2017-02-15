@@ -1,9 +1,61 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
   <title>Home</title>
+  <style type="text/css">
+    body {
+      background: #f7f7f7;
+    }
+
+    ul {
+      padding: 0px;
+      list-style: none;
+    }
+
+    #appmenu {
+      padding-top: 100px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #appmenu ul {
+      display: flex;
+      align-items: center;
+    }
+
+    #appmenu li {
+      margin-left: 50px;
+      width: 200px;
+      text-align: center;
+    }
+
+    #appmenu li:first-child {
+      margin-left: 0px;
+    }
+
+    #appmenu li a img {
+      max-width: 200px;
+      max-height: 100px;
+    }
+  </style>
 </head>
 <body>
-Hello world
+  <div id="container">
+    <div id="content">
+      <div id="appmenu">
+        <ul>
+          <li id="gitlab">
+            <a href="http://10.0.200.130:10080" target="_blank"><img src="images/gitlab_logo.png" alt="Gitlab"></a>
+          </li>
+          <li id="mattermost">
+            <a href="http://10.0.200.130:8080" target="_blank"><img src="images/mattermost_logo.png" alt="Mattermost"></a>
+          </li>
+          <li id="sonarqube">
+            <a href="http://10.0.200.130:9000" target="_blank"><img src="images/sonarqube_logo.png" alt="Sonarqube"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>  
+
 </body>
 </html>
