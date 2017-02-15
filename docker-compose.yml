@@ -64,6 +64,15 @@ services:
       - MM_PASSWORD=password
       - MM_DBNAME=mattermost
 
+  nexus:
+    restart: always
+    image: sonatype/nexus3:3.2.0
+    ports:
+      - "8081:8081"
+    volumes:
+      - /srv/docker/mgsdocker/app/nexus3/nexus-data:/nexus-data:rw
+
+
   gitlab:
     restart: always
     image: sameersbn/gitlab:8.16.3
